@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\LabelResource;
-use App\Models\Label;
+use App\Http\Resources\NoteResource;
+use App\Models\Note;
 use Illuminate\Http\Request;
 
-class LabelController extends Controller
+class NoteController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,11 +15,10 @@ class LabelController extends Controller
      */
     public function index()
     {
-        $labels = Label::with('notes')
-            ->orderBy('id', 'desc')
-            ->get();
+        $notes = Note::orderBy('pinned', 'desc')
+            ->paginate(10);
 
-        return LabelResource::collection($labels);
+        return NoteResource::collection($notes);
     }
 
     /**
@@ -30,11 +29,16 @@ class LabelController extends Controller
      */
     public function store(Request $request)
     {
-        $label = Label::create([
-            'title' => $request->title
+        $note = Note::create([
+            'title' => $request->title,
+            'description' => $request->description,
+            'color' => $request->color,
+            'pinned' => $request->pinned,
+            'archived' => $request->archived,
+            'label' => $request->label
         ]);
 
-        return new LabelResource($label);
+        return new NoteResource($note);
     }
 
     /**
@@ -45,9 +49,9 @@ class LabelController extends Controller
      */
     public function show($id)
     {
-        $label = Label::findorfail($id);
+        $note = Note::findorfail($id);
 
-        return new LabelResource($label);
+        return new NoteResource($note);
     }
 
     /**
@@ -59,13 +63,18 @@ class LabelController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $label = Label::findorfail($id);
+        $note = Note::findorfail($id);
 
-        $label->update([
-            'title' => $request->title
+        $note->update([
+            'title' => $request->title,
+            'description' => $request->description,
+            'color' => $request->color,
+            'pinned' => $request->pinned,
+            'archived' => $request->archived,
+            'label' => $request->label
         ]);
 
-        return new LabelResource($label);
+        return new NoteResource($note);
     }
 
     /**
@@ -76,9 +85,9 @@ class LabelController extends Controller
      */
     public function destroy($id)
     {
-        $label = Label::findorfail($id);
+        $note = Note::findorfail($id);
 
-        $label->delete();
+        $note->delete();
 
         return response()->json(null, 204);
     }

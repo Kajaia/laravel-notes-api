@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class LabelResource extends JsonResource
+class NoteResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,7 +17,11 @@ class LabelResource extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->title,
-            'notes' => $this->whenLoaded('notes')
+            'description' => $this->description,
+            'color' => $this->color,
+            'pinned' => $this->pinned,
+            'archived' => $this->archived,
+            'label_id' => $this->label
         ];
     }
 }

@@ -11,6 +11,11 @@ class Label extends Model
 
     protected $fillable = ['title'];
 
+    protected $hidden = [
+        'created_at',
+        'updated_at'
+    ];
+
     public function notes() {
         return $this->hasMany(Note::class);
     }

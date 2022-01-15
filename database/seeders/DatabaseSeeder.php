@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Label;
+use App\Models\Note;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -13,6 +15,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        Label::factory(10)->create();
+        Note::factory(50)->create();
     }
 }

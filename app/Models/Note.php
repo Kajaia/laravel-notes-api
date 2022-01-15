@@ -10,16 +10,22 @@ class Note extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillables = [
+    protected $fillable = [
         'title',
         'description',
         'color',
         'pinned',
         'archived',
-        'label'
+        'label_id'
+    ];
+
+    protected $hidden = [
+        'deleted_at',
+        'created_at',
+        'updated_at'
     ];
 
     public function label() {
-        return $this->belongsTo(Label::class, 'label');
+        return $this->belongsTo(Label::class);
     }
 }
