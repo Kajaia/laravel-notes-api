@@ -93,6 +93,13 @@ class NoteController extends Controller
         return response()->json(null, 204);
     }
 
+    public function trash(Request $request) {
+        $notes = Note::onlyTrashed()
+            ->get();
+
+        return NoteResource::collection($notes);
+    }
+
     public function restore($id)
     {
         Note::withTrashed()

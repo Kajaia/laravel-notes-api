@@ -26,3 +26,4 @@ Route::apiResources([
 ]);
 
 Route::post('notes/{id}/restore', [NoteController::class, 'restore']);
+Route::get('trash', [NoteController::class, 'trash']);

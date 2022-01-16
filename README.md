@@ -37,6 +37,7 @@ This is a basic Google Keep Clone made with Bootstrap, React, Laravel and MySQL.
 -   Add new note with POST method `127.0.0.1:8000/api/notes`
 -   Edit specific note with PUT method `127.0.0.1:8000/api/notes/{id}`
 -   Delete specific note with DELETE method `127.0.0.1:8000/api/notes/{id}`
+-   Get all deleted notes `127.0.0.1:8000/api/trash`
 
 #### Search Notes
 
