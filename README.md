@@ -19,3 +19,29 @@ This is a basic Google Keep Clone made with Bootstrap, React, Laravel and MySQL.
 
 1. Run command `npm install`
 2. For development environment run `npm run dev`, for production `npm run prod`
+
+## API Docs
+
+### Labels (Note categories)
+
+-   Get all labels by visiting `127.0.0.1:8000/api/labels`
+-   Get specific label by visiting `127.0.0.1:8000/api/labels/{id}`
+-   Add new label with POST method `127.0.0.1:8000/api/labels`
+-   Edit specific label with PUT method `127.0.0.1:8000/api/labels/{id}`
+-   Delete specific label with DELETE method `127.0.0.1:8000/api/labels/{id}`
+
+### Notes
+
+-   Get all notes by visiting `127.0.0.1:8000/api/notes`
+-   Get specific note by visiting `127.0.0.1:8000/api/notes/{id}`
+-   Add new note with POST method `127.0.0.1:8000/api/notes`
+-   Edit specific note with PUT method `127.0.0.1:8000/api/notes/{id}`
+-   Delete specific note with DELETE method `127.0.0.1:8000/api/notes/{id}`
+
+#### Search Notes
+
+-   GET request on `127.0.0.1:8000/api/labels` using search param
+
+#### Restore deleted note
+
+-   You can do this with POST method `127.0.0.1:8000/api/notes/restore/{id}`

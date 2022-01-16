@@ -92,4 +92,13 @@ class NoteController extends Controller
 
         return response()->json(null, 204);
     }
+
+    public function restore($id)
+    {
+        Note::withTrashed()
+            ->find($id)
+            ->restore();
+
+        return response()->json(null, 204);
+    }
 }

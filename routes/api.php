@@ -24,3 +24,5 @@ Route::apiResources([
     'labels' => LabelController::class,
     'notes' => NoteController::class
 ]);
+
+Route::post('notes/restore/{id}', [NoteController::class, 'restore']);
