@@ -25,4 +25,4 @@ Route::apiResources([
     'notes' => NoteController::class
 ]);
 
-Route::post('notes/restore/{id}', [NoteController::class, 'restore']);
+Route::post('notes/{id}/restore', [NoteController::class, 'restore']);

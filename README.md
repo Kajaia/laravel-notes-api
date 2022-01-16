@@ -44,4 +44,4 @@ This is a basic Google Keep Clone made with Bootstrap, React, Laravel and MySQL.
 
 #### Restore deleted note
 
--   You can do this with POST method `127.0.0.1:8000/api/notes/restore/{id}`
+-   You can do this with POST method `127.0.0.1:8000/api/notes/{id}/restore`
