@@ -45,7 +45,8 @@ class LabelController extends Controller
      */
     public function show($id)
     {
-        $label = Label::findorfail($id);
+        $label = Label::with('notes')
+            ->findorfail($id);
 
         return new LabelResource($label);
     }

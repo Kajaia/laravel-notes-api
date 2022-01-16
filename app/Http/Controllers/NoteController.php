@@ -13,9 +13,10 @@ class NoteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $notes = Note::orderBy('pinned', 'desc')
+            ->filter($request->all())
             ->paginate(10);
 
         return NoteResource::collection($notes);
