@@ -16,7 +16,7 @@ class LabelController extends Controller
     public function index()
     {
         $labels = Label::with('notes')
-            ->orderBy('id', 'desc')
+            ->orderBy('title', 'asc')
             ->get();
 
         return LabelResource::collection($labels);
@@ -81,6 +81,8 @@ class LabelController extends Controller
 
         $label->delete();
 
-        return response()->json(null, 204);
+        return [
+            'removed' => true
+        ];
     }
 }

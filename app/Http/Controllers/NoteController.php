@@ -15,9 +15,17 @@ class NoteController extends Controller
      */
     public function index(Request $request)
     {
-        $notes = Note::orderBy('pinned', 'desc')
-            ->filter($request->all())
-            ->paginate(10);
+        $notes = Note::orderBy($request->orderBy ?? 'created_at', $request->orderDirection ?? 'desc')
+            ->when($request->search, function($query) use ($request) {
+                $query->where('title', 'LIKE', "%$request->search%");
+            })
+            ->when($request->boolean('pinned'), function($query) use ($request) {
+                $query->where('pinned', $request->boolean('pinned'));
+            })
+            ->when($request->boolean('archived'), function($query) use ($request) {
+                $query->where('archived', $request->boolean('archived'));
+            })
+            ->paginate($request->perPage ?? 10);
 
         return NoteResource::collection($notes);
     }
@@ -36,7 +44,7 @@ class NoteController extends Controller
             'color' => $request->color,
             'pinned' => $request->pinned,
             'archived' => $request->archived,
-            'label' => $request->label
+            'label_id' => $request->label_id
         ]);
 
         return new NoteResource($note);
@@ -72,7 +80,7 @@ class NoteController extends Controller
             'color' => $request->color,
             'pinned' => $request->pinned,
             'archived' => $request->archived,
-            'label' => $request->label
+            'label_id' => $request->label_id
         ]);
 
         return new NoteResource($note);
@@ -90,10 +98,12 @@ class NoteController extends Controller
 
         $note->delete();
 
-        return response()->json(null, 204);
+        return [
+            'removed' => true
+        ];
     }
 
-    public function trash(Request $request) {
+    public function trash() {
         $notes = Note::onlyTrashed()
             ->get();
 
@@ -102,10 +112,12 @@ class NoteController extends Controller
 
     public function restore($id)
     {
-        Note::withTrashed()
+        $note = Note::withTrashed()
             ->find($id)
             ->restore();
 
-        return response()->json(null, 204);
+        return [
+            'restored' => $note
+        ];
     }
 }
