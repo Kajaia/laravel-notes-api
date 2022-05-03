@@ -24,11 +24,9 @@ class CreateNotesTable extends Migration
                 ->default(0);
             $table->boolean('archived')
                 ->default(0);
-            $table->unsignedBigInteger('label_id')
-                ->nullable();
-            $table->foreign('label_id')
-                ->references('id')
-                ->on('labels');
+            $table->foreignId('label_id')
+                ->nullable()
+                ->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();
         });
