@@ -16,7 +16,7 @@ class NoteFactory extends Factory
         return [
             'title' => $this->faker->word() . ' ' . $this->faker->word() . ' ' . $this->faker->word(),
             'description' => $this->faker->text(200),
-            'color' => $this->faker->randomElement($array = array ('bg-warning','bg-danger','bg-success')),
+            'color' => $this->faker->randomElement($array = array ('bg-warning','bg-danger','bg-success','bg-primary','bg-secondary','bg-light')),
             'pinned' => $this->faker->boolean(),
             'archived' => $this->faker->boolean(),
             'label_id' => $this->faker->numberBetween(1, 10)
