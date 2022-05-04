@@ -15,15 +15,10 @@ class NoteController extends Controller
      */
     public function index(Request $request)
     {
-        $notes = Note::orderBy($request->orderBy ?? 'created_at', $request->orderDirection ?? 'desc')
+        $notes = Note::orderBy($request->orderBy ?? 'pinned', $request->orderDirection ?? 'desc')
+            ->where('archived', false)
             ->when($request->search, function($query) use ($request) {
                 $query->where('title', 'LIKE', "%$request->search%");
-            })
-            ->when($request->boolean('pinned'), function($query) use ($request) {
-                $query->where('pinned', $request->boolean('pinned'));
-            })
-            ->when($request->boolean('archived'), function($query) use ($request) {
-                $query->where('archived', $request->boolean('archived'));
             })
             ->paginate($request->perPage ?? 10);
 
@@ -118,6 +113,53 @@ class NoteController extends Controller
 
         return [
             'restored' => $note
+        ];
+    }
+
+    public function archivedNotes(Request $request) {
+        return [
+            'data' => Note::where('archived', true)
+                ->with([
+                    'label'
+                ])
+                ->orderBy('pinned', 'desc')
+                ->paginate($request->perPage ?? 10)
+        ];
+    }
+
+    public function archive($id) {
+        $note = Note::findOrFail($id);
+
+        if($note->archived) {
+            $note->update([
+                'archived' => 0
+            ]);
+        } else {
+            $note->update([
+                'archived' => 1
+            ]);
+        }
+
+        return [
+            'data' => $note
+        ];
+    }
+
+    public function pin($id) {
+        $note = Note::findOrFail($id);
+
+        if($note->pinned) {
+            $note->update([
+                'pinned' => 0
+            ]);
+        } else {
+            $note->update([
+                'pinned' => 1
+            ]);
+        }
+
+        return [
+            'data' => $note
         ];
     }
 }
