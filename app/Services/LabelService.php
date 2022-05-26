@@ -30,12 +30,4 @@ class LabelService {
         return $label;
     }
 
-    public function deleteLabel($id) {
-        $label = Label::findorfail($id);
-
-        $label->delete();
-
-        return $label;
-    }
-
 }

@@ -4,25 +4,27 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\NoteResource;
 use App\Models\Note;
+use App\Services\NoteService;
 use Illuminate\Http\Request;
 
 class NoteController extends Controller
 {
+    protected Request $request;
+    protected NoteService $service;
+
+    public function __construct(Request $request, NoteService $service)
+    {
+        $this->request = $request;
+        $this->service = $service;
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index(Note $note)
     {
-        $notes = Note::orderBy($request->orderBy ?? 'pinned', $request->orderDirection ?? 'desc')
-            ->where('archived', false)
-            ->when($request->search, function($query) use ($request) {
-                $query->where('title', 'LIKE', "%$request->search%");
-            })
-            ->paginate($request->perPage ?? 10);
-
-        return NoteResource::collection($notes);
+        return NoteResource::collection($note->getNotesWithPagination($this->request));
     }
 
     /**
@@ -31,18 +33,9 @@ class NoteController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store()
     {
-        $note = Note::create([
-            'title' => $request->title,
-            'description' => $request->description,
-            'color' => $request->color,
-            'pinned' => $request->pinned,
-            'archived' => $request->archived,
-            'label_id' => $request->label_id
-        ]);
-
-        return new NoteResource($note);
+        return new NoteResource($this->service->createNote());
     }
 
     /**
@@ -51,11 +44,9 @@ class NoteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Note $note)
     {
-        $note = Note::findorfail($id);
-
-        return new NoteResource($note);
+        return new NoteResource($note->getSpecificNote($note->id));
     }
 
     /**
@@ -65,20 +56,9 @@ class NoteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Note $note)
     {
-        $note = Note::findorfail($id);
-
-        $note->update([
-            'title' => $request->title,
-            'description' => $request->description,
-            'color' => $request->color,
-            'pinned' => $request->pinned,
-            'archived' => $request->archived,
-            'label_id' => $request->label_id
-        ]);
-
-        return new NoteResource($note);
+        return new NoteResource($this->service->updateNote($note->id));
     }
 
     /**
@@ -87,79 +67,37 @@ class NoteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Note $note)
     {
-        $note = Note::findorfail($id);
-
-        $note->delete();
-
-        return [
-            'removed' => true
-        ];
+        return response()->json(Note::findorfail($note->id)->delete());
     }
 
+    /**
+     * Get soft deleted notes
+     */
     public function trash() {
-        $notes = Note::onlyTrashed()
-            ->get();
-
-        return NoteResource::collection($notes);
+        return NoteResource::collection(Note::onlyTrashed()->get());
     }
 
+    /**
+     * Restore deleted note
+     */
     public function restore($id)
     {
-        $note = Note::withTrashed()
-            ->find($id)
-            ->restore();
-
-        return [
-            'restored' => $note
-        ];
+        return response()->json(Note::withTrashed()->find($id)->restore());
     }
 
-    public function archivedNotes(Request $request) {
-        return [
-            'data' => Note::where('archived', true)
-                ->with([
-                    'label'
-                ])
-                ->orderBy('pinned', 'desc')
-                ->paginate($request->perPage ?? 10)
-        ];
-    }
-
+    /**
+     * Archive or unarchive note
+     */
     public function archive($id) {
-        $note = Note::findOrFail($id);
-
-        if($note->archived) {
-            $note->update([
-                'archived' => 0
-            ]);
-        } else {
-            $note->update([
-                'archived' => 1
-            ]);
-        }
-
-        return [
-            'data' => $note
-        ];
+        return $this->service->archiveNote($id);
     }
 
+    /**
+     * Pin or unpin note
+     */
     public function pin($id) {
-        $note = Note::findOrFail($id);
-
-        if($note->pinned) {
-            $note->update([
-                'pinned' => 0
-            ]);
-        } else {
-            $note->update([
-                'pinned' => 1
-            ]);
-        }
-
-        return [
-            'data' => $note
-        ];
+        return $this->service->pinNote($id);
     }
 }

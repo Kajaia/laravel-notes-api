@@ -66,6 +66,6 @@ class LabelController extends Controller
      */
     public function destroy(Label $label)
     {
-        return new LabelResource($this->service->deleteLabel($label->id));
+        return response()->json(Label::findorfail($label->id)->delete());
     }
 }
