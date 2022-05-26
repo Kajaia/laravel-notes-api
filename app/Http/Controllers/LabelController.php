@@ -4,22 +4,24 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\LabelResource;
 use App\Models\Label;
-use Illuminate\Http\Request;
+use App\Services\LabelService;
 
 class LabelController extends Controller
 {
+    protected LabelService $service;
+
+    public function __construct(LabelService $service)
+    {
+        $this->service = $service;
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Label $label)
     {
-        $labels = Label::with('notes')
-            ->orderBy('title', 'asc')
-            ->get();
-
-        return LabelResource::collection($labels);
+        return LabelResource::collection($label->getAllLabelsWithNotes());
     }
 
     /**
@@ -28,13 +30,9 @@ class LabelController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store()
     {
-        $label = Label::create([
-            'title' => $request->title
-        ]);
-
-        return new LabelResource($label);
+        return new LabelResource($this->service->createLabel());
     }
 
     /**
@@ -43,12 +41,9 @@ class LabelController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Label $label)
     {
-        $label = Label::with('notes')
-            ->findorfail($id);
-
-        return new LabelResource($label);
+        return new LabelResource($label->getSpecificLabelWithNotes($label->id));
     }
 
     /**
@@ -58,15 +53,9 @@ class LabelController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Label $label)
     {
-        $label = Label::findorfail($id);
-
-        $label->update([
-            'title' => $request->title
-        ]);
-
-        return new LabelResource($label);
+        return new LabelResource($this->service->updateLabel($label->id));
     }
 
     /**
@@ -75,14 +64,8 @@ class LabelController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Label $label)
     {
-        $label = Label::findorfail($id);
-
-        $label->delete();
-
-        return [
-            'removed' => true
-        ];
+        return new LabelResource($this->service->deleteLabel($label->id));
     }
 }

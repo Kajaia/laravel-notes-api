@@ -25,10 +25,8 @@ Route::apiResources([
     'notes' => NoteController::class
 ]);
 
-Route::post('notes/{id}/restore', [NoteController::class, 'restore']);
 Route::get('trash', [NoteController::class, 'trash']);
 Route::get('archive', [NoteController::class, 'archivedNotes']);
-Route::post('archive/{id}', [NoteController::class, 'archive'])
-    ->whereNumber('id');
-Route::post('pin/{id}', [NoteController::class, 'pin'])
-    ->whereNumber('id');
+Route::post('notes/{id}/restore', [NoteController::class, 'restore'])->whereNumber('id');
+Route::post('archive/{id}', [NoteController::class, 'archive'])->whereNumber('id');
+Route::post('pin/{id}', [NoteController::class, 'pin'])->whereNumber('id');

@@ -19,4 +19,12 @@ class Label extends Model
     public function notes() {
         return $this->hasMany(Note::class);
     }
+
+    public function getAllLabelsWithNotes() {
+        return $this->with('notes')->orderBy('title', 'asc')->get();
+    }
+
+    public function getSpecificLabelWithNotes($id) {
+        return $this->with('notes')->findorfail($id);
+    }
 }
