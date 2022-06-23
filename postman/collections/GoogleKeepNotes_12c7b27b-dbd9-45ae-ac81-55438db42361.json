@@ -1,0 +1,688 @@
+{
+	"info": {
+		"_postman_id": "35808862-0ab2-49f7-84ae-2167198f7af8",
+		"name": "GoogleKeepNotes",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Notes",
+			"item": [
+				{
+					"name": "Notes list",
+					"id": "2a6b49a4-5aef-4783-9fbd-50c92430f833",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/notes",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"notes"
+							],
+							"query": [
+								{
+									"key": "orderBy",
+									"value": "created_at",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "orderDirection",
+									"value": "desc",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "search",
+									"value": "lorem",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search notes",
+					"id": "22547828-6628-49b4-811c-9cd128962674",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/notes?search=lorem",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"notes"
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": "lorem",
+									"type": "text"
+								},
+								{
+									"key": "orderDirection",
+									"value": "desc",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "search",
+									"value": "lorem",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show pinned notes",
+					"id": "4b1b2d77-ed31-42a6-8e8d-37e97e372ad8",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/notes?pinned=true",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"notes"
+							],
+							"query": [
+								{
+									"key": "pinned",
+									"value": "true",
+									"type": "text"
+								},
+								{
+									"key": "orderDirection",
+									"value": "desc",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "search",
+									"value": "lorem",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Archived notes",
+					"id": "eba69818-bdb5-4b93-bfb8-5207063b9d6f",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/notes?archived=true",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"notes"
+							],
+							"query": [
+								{
+									"key": "archived",
+									"value": "true",
+									"type": "text"
+								},
+								{
+									"key": "orderDirection",
+									"value": "desc",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "search",
+									"value": "lorem",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Order notes",
+					"id": "efe49988-8ee1-4c6f-94dc-bb48b9a531f3",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/notes?orderBy=created_at&orderDirection=asc",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"notes"
+							],
+							"query": [
+								{
+									"key": "orderBy",
+									"value": "created_at"
+								},
+								{
+									"key": "orderDirection",
+									"value": "asc",
+									"type": "text"
+								},
+								{
+									"key": "search",
+									"value": "lorem",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Paginate notes",
+					"id": "4f117e81-2c4e-4f93-bdaa-5798a8d7c00f",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/notes?page=2&perPage=20",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"notes"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "2"
+								},
+								{
+									"key": "perPage",
+									"value": "20"
+								},
+								{
+									"key": "search",
+									"value": "lorem",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create note",
+					"id": "1fd67454-32d6-4081-9bde-49686fae0045",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "title",
+									"value": "Lorem ipsum",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Lorem ipsum dolor, sit amet...",
+									"type": "text"
+								},
+								{
+									"key": "color",
+									"value": "bg-white",
+									"type": "text"
+								},
+								{
+									"key": "pinned",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "archived",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "label_id",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/notes",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"notes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show specific note",
+					"id": "d8bb7f41-a52b-4ab0-90a9-30527c6d090e",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/notes/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"notes",
+								"1"
+							],
+							"query": [
+								{
+									"key": "orderBy",
+									"value": "created_at",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "orderDirection",
+									"value": "desc",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "search",
+									"value": "lorem",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit specific note",
+					"id": "53a25ce7-fce3-40bb-a2b0-3a5614ab4ba0",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "title",
+									"value": "New title",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "New description",
+									"type": "text"
+								},
+								{
+									"key": "color",
+									"value": "bg-white",
+									"type": "text"
+								},
+								{
+									"key": "pinned",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "archived",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "label_id",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/notes/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"notes",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove specific note",
+					"id": "6a42bb13-fe21-4f0f-926b-b157926a666e",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/notes/2",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"notes",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Trashed notes list",
+					"id": "f3b4c8a8-2d49-4f6f-815d-9817cb3e834f",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/trash",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"trash"
+							],
+							"query": [
+								{
+									"key": "orderBy",
+									"value": "created_at",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "orderDirection",
+									"value": "desc",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "search",
+									"value": "lorem",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Restore trashed note",
+					"id": "1a6401a4-2325-405e-9fa7-f4adb8832319",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/notes/1/restore",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"notes",
+								"1",
+								"restore"
+							],
+							"query": [
+								{
+									"key": "orderBy",
+									"value": "created_at",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "orderDirection",
+									"value": "desc",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "search",
+									"value": "lorem",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Archive or unarchive specific note",
+					"id": "151f3966-f7e2-4a83-a597-9b39769434ae",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/archive/3",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"archive",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Pin or unpin specific note",
+					"id": "244007ff-db05-4e67-b988-4e0b348bfe04",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/pin/3",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"pin",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"id": "5717ada2-16e5-4e43-a014-ada1cc360036"
+		},
+		{
+			"name": "Labels",
+			"item": [
+				{
+					"name": "Labels list",
+					"id": "b26d711f-c632-4a85-b112-36ed11870479",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/labels",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"labels"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create label",
+					"id": "05b0a3d0-61c1-4b98-b2b7-ba1a091427d6",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "title",
+									"value": "Lorem",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/labels",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"labels"
+							],
+							"query": [
+								{
+									"key": "title",
+									"value": "Lorem",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show specific label",
+					"id": "c6631ca2-8fc7-4f3e-bbfc-44d120babb0e",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/labels/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"labels",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit specific label",
+					"id": "05864ee0-e6f4-46ee-8dba-32ce1e746357",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "title",
+									"value": "Updated lorem",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/labels/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"labels",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove specific label",
+					"id": "24724a85-7803-4567-b5c6-cf1d3ff2636e",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/labels/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"labels",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"id": "8fb24c42-16d1-441b-84f8-3503350d0395"
+		}
+	]
+}
